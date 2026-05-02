@@ -434,14 +434,18 @@ Why:
 
 -   Installs container engine
 
+```
 sudo systemctl start docker  
 sudo systemctl enable docker
+```
 
 Why:
 
 -   Starts Docker service automatically
 
+```
 sudo usermod -aG docker $USER
+```
 
 Why:
 
@@ -449,11 +453,13 @@ Why:
 
 **DOCKER IMAGE**
 
+```
 FROM node:18  
 WORKDIR /app  
 COPY . .  
 RUN npm install  
 CMD \["node", "app.js"\]
+```
 
 Why:
 
@@ -461,7 +467,9 @@ Why:
 
 **BUILD IMAGE**
 
+```
 docker build -t app:v1 .
+```
 
 Why:
 
@@ -469,7 +477,9 @@ Why:
 
 **RUN CONTAINER**
 
+```
 docker run -d -p 3000:3000 app:v1
+```
 
 Why:
 
@@ -491,7 +501,9 @@ Why:
 
 **NETWORKING BETWEEN SERVICES**
 
+```
 docker network create devops-net
+```
 
 Why:
 
@@ -503,7 +515,9 @@ Using GitHub Actions
 
 Workflow:
 
+```
 on: push
+```
 
 Why:
 
@@ -561,6 +575,7 @@ EC2 → Prometheus → Grafana → Dashboard
 
 **🚨 FINAL REAL FLOW (COMPLETE SYSTEM)**
 
+```
 Developer  
 ↓  
 GitHub  
@@ -580,6 +595,7 @@ User Access
 Prometheus Monitoring  
 ↓  
 Grafana Dashboard
+```
 
 **🧠 FINAL TRUTH (IMPORTANT)**
 
