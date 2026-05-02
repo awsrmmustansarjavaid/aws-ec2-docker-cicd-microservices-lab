@@ -6,6 +6,8 @@
 
 ---
 
+![AWS DevOps Microservices Lab Architecture](./lab_doc/791b41c0-8c67-4043-b452-4c210ebd4b70.png)
+
 ## 🧪 COMPLETE AWS DEVOPS LAB (BEGINNER → ADVANCED)
 
 We’ll build a complete DevOps system on AWS EC2 using:
