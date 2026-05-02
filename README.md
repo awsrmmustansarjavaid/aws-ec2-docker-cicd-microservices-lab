@@ -327,3 +327,464 @@ This lab teaches you:
 
 ---
 
+# 🧱 PHASE 1: AWS EC2 SETUP (FOUNDATION)
+
+## ✅ Step 1: Launch EC2 Instance
+OS: Ubuntu 22.04 or Amazon Linux 2023  
+Instance type: t2.micro (free tier)
+
+---
+
+## ✅ Step 2: Security Group (VERY IMPORTANT)
+
+Allow:
+
+- SSH (22) → Your IP  
+- HTTP (80) → 0.0.0.0/0  
+- HTTPS (443) → 0.0.0.0/0  
+- Custom (3000-5000) → For apps  
+- 9090 → Prometheus  
+- 3001 → Grafana  
+
+---
+
+## ✅ Step 3: Connect via SSH
+
+```bash
+chmod 400 mykey.pem
+ssh -i mykey.pem ubuntu@<EC2_PUBLIC_IP>
+```
+
+---
+
+## ✅ Step 4: Install Base Tools
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y git curl wget unzip net-tools htop
+```
+
+---
+
+## 🎯 Practice Tasks
+
+- Create 3 directories: dev, test, prod  
+- SSH reconnect without errors  
+- Block and allow ports from security group  
+
+---
+
+# 🐧 PHASE 2: LINUX (REAL DEVOPS TASKS)
+
+## 🔹 File & Directory
+
+```bash
+ls -la
+cp file1.txt backup.txt
+mv file1.txt /tmp/
+rm -rf temp*
+find / -name "*.log"
+```
+
+---
+
+## 🔹 Users & Permissions
+
+```bash
+sudo useradd devops
+sudo passwd devops
+sudo groupadd engineers
+sudo usermod -aG engineers devops
+chmod 755 script.sh
+chown ubuntu:ubuntu file.txt
+```
+
+---
+
+## 🔹 Processes
+
+```bash
+ps aux
+top
+htop
+kill -9 <PID>
+```
+
+---
+
+## 🔹 Disk
+
+```bash
+df -h
+du -sh *
+```
+
+---
+
+## 🔹 Logs
+
+```bash
+cd /var/log
+tail -f syslog
+journalctl -xe
+```
+
+---
+
+## 🔹 Networking
+
+```bash
+ping google.com
+curl ifconfig.me
+ss -tulnp
+```
+
+---
+
+## 🔹 Bash Script (REAL)
+
+```bash
+nano backup.sh
+
+#!/bin/bash
+tar -czf backup-$(date +%F).tar.gz /home/ubuntu
+```
+
+---
+
+## 🎯 Practice Tasks
+
+- Create script to delete old logs  
+- Monitor CPU usage  
+- Create auto backup script  
+
+---
+
+# 🔧 PHASE 3: GIT + GITHUB LAB
+
+## Install Git
+
+```bash
+sudo apt install git -y
+git config --global user.name "yourname"
+git config --global user.email "you@example.com"
+```
+
+---
+
+## Create Repo
+
+```bash
+mkdir microservices-app && cd microservices-app
+git init
+```
+
+---
+
+## Connect to GitHub
+
+```bash
+git remote add origin https://github.com/<username>/devops-lab.git
+```
+
+---
+
+## Branching
+
+```bash
+git checkout -b feature-login
+git branch -m feature-auth
+git branch -d old-branch
+```
+
+---
+
+## Advanced Git
+
+```bash
+git stash
+git stash pop
+git tag v1.0
+git log --oneline
+git diff
+git reset --hard HEAD~1
+git revert HEAD
+git cherry-pick <commit>
+```
+
+---
+
+## 🎯 Practice Tasks
+
+- Create 2 branches and merge them  
+- Create tag v1.0 and push  
+- Simulate conflict and resolve  
+
+---
+
+# 🐳 PHASE 4: DOCKER LAB
+
+## Install Docker
+
+```bash
+sudo apt install docker.io -y
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+```
+
+---
+
+## Dockerfile Example (Node.js)
+
+```dockerfile
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["node", "app.js"]
+```
+
+---
+
+## Build & Run
+
+```bash
+docker build -t app:v1 .
+docker run -d -p 3000:3000 app:v1
+```
+
+---
+
+## Volumes
+
+```bash
+docker run -d -v /data:/app/data app:v1
+```
+
+---
+
+## Docker Compose
+
+```yaml
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+```
+
+```bash
+docker-compose up -d
+```
+
+---
+
+## 🎯 Practice Tasks
+
+- Run 2 containers  
+- Connect containers via network  
+- Debug container crash  
+
+---
+
+# 🧩 PHASE 5: MICROSERVICES PROJECT (REAL APP)
+
+## Architecture
+
+- frontend (Node.js)  
+- backend (Node.js API)  
+- database (MongoDB)  
+
+---
+
+## Backend Example
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.get('/api', (req,res)=>{
+  res.send("Hello from backend");
+});
+
+app.listen(4000);
+```
+
+---
+
+## Connect Services (Docker Network)
+
+```bash
+docker network create devops-net
+docker run -d --network devops-net backend
+docker run -d --network devops-net frontend
+```
+
+---
+
+## 🎯 Practice Tasks
+
+- Add second API endpoint  
+- Break service → debug logs  
+
+---
+
+# 🔁 PHASE 6: CI/CD WITH GITHUB ACTIONS
+
+## Create Workflow
+
+```yaml
+name: DevOps Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build Docker Image
+      run: docker build -t app .
+
+    - name: Push to DockerHub
+      run: docker push <username>/app
+
+    - name: Deploy to EC2
+      run: ssh ubuntu@<IP> "docker pull <username>/app && docker run -d -p 3000:3000 <username>/app"
+```
+
+---
+
+## 🎯 Practice Tasks
+
+- Trigger pipeline on push  
+- Break build intentionally  
+- Fix pipeline  
+
+---
+
+# 🔐 PHASE 7: SECURITY
+
+## IAM (AWS)
+
+- IAM Role for EC2  
+- No hardcoded credentials  
+- Secrets in GitHub  
+
+---
+
+## Store Secrets
+
+- SSH key  
+- Docker credentials  
+
+---
+
+## Vulnerability Scan (Trivy)
+
+```bash
+sudo apt install trivy
+trivy image app:v1
+```
+
+---
+
+# 📊 PHASE 8: MONITORING
+
+## Install Prometheus
+
+```bash
+wget https://github.com/prometheus/prometheus/releases/download/...tar.gz
+```
+
+---
+
+## Install Grafana
+
+```bash
+sudo apt install grafana -y
+sudo systemctl start grafana-server
+```
+
+---
+
+## Access Grafana
+
+```
+http://<EC2-IP>:3001
+```
+
+---
+
+## 🎯 Practice Tasks
+
+- Monitor CPU usage  
+- Add dashboard  
+- Simulate high load  
+
+---
+
+# 🔥 FINAL REAL-WORLD SCENARIO
+
+You are a DevOps Engineer:
+
+- Developer pushes code  
+- Pipeline runs  
+- Docker image builds  
+- Security scan runs  
+- Image pushed  
+- EC2 auto-updates container  
+- Monitoring shows metrics  
+
+---
+
+# ⚠️ TROUBLESHOOTING (IMPORTANT)
+
+## Docker Issue
+```bash
+sudo systemctl restart docker
+```
+
+## Port Issue
+```bash
+sudo ss -tulnp
+```
+
+## Permission Issue
+```bash
+sudo chmod -R 777 project/
+```
+
+## Pipeline Issue
+- Check GitHub Actions logs  
+- Verify secrets  
+
+---
+
+# 🎯 FINAL RESULT (WHAT YOU WILL MASTER)
+
+After completing this lab, you will:
+
+- Think like a DevOps Engineer  
+- Deploy real microservices  
+- Build CI/CD pipelines  
+- Debug production issues  
+- Work with AWS in real scenarios  
+
+---
+
+# 💡 IMPORTANT (REAL TALK)
+
+Don’t just read this.
+
+👉 Build it step-by-step  
+👉 Break things intentionally  
+👉 Fix them  
+
+That’s how DevOps engineers are made — not by theory.
