@@ -31,33 +31,15 @@ Download .pem file
 
 Open ports:
 
-**Port**
+| Port      | Purpose                |
+| --------- | ---------------------- |
+| 22        | SSH access             |
+| 80        | HTTP web traffic       |
+| 443       | HTTPS secure traffic   |
+| 3000–5000 | Apps (Docker services) |
+| 9090      | Prometheus             |
+| 3001      | Grafana                |
 
-**Purpose**
-
-22
-
-SSH access
-
-80
-
-HTTP web traffic
-
-443
-
-HTTPS secure traffic
-
-3000–5000
-
-Apps (Docker services)
-
-9090
-
-Prometheus
-
-3001
-
-Grafana
 
 **Why this is critical:**
 
@@ -67,15 +49,18 @@ Security Group = firewall of AWS
 
 **💻 STEP 4: Connect to EC2 via SSH**
 
+```
 chmod 400 mykey.pem
+```
 
 **Why?**
 
 -   Restricts file permission
 -   SSH refuses insecure keys
 
+```
 ssh -i mykey.pem ubuntu@<EC2\_PUBLIC\_IP>
-
+```
 **Why?**
 
 -   Connects your laptop → remote AWS server
@@ -83,48 +68,36 @@ ssh -i mykey.pem ubuntu@<EC2\_PUBLIC\_IP>
 
 **⚙️ STEP 5: Install Base Tools**
 
+```
 sudo apt update && sudo apt upgrade -y
+```
 
 **Why?**
 
 -   Updates package list
 -   Installs latest security patches
 
+```
 sudo apt install -y git curl wget unzip net-tools htop
+```
 
 **Why each tool exists:**
 
-**Tool**
+| Tool      | Purpose            |
+| --------- | ------------------ |
+| git       | version control    |
+| curl      | API testing        |
+| wget      | file download      |
+| unzip     | extract files      |
+| net-tools | network commands   |
+| htop      | process monitoring |
 
-**Purpose**
-
-git
-
-version control
-
-curl
-
-API testing
-
-wget
-
-file download
-
-unzip
-
-extract files
-
-net-tools
-
-network commands
-
-htop
-
-process monitoring
 
 **🎯 PRACTICE TASKS**
 
+```
 mkdir dev test prod
+```
 
 **Why?**
 
@@ -138,25 +111,33 @@ Simulates real environment separation:
 
 **📂 FILE SYSTEM COMMANDS**
 
+```
 ls -la
+```
 
 **Why?**
 
 Shows ALL files including hidden ones + permissions
 
+```
 cp file1.txt backup.txt
+```
 
 Why:
 
 -   Copy file for backup safety
 
+```
 mv file1.txt /tmp/
+```
 
 Why:
 
 -   Move file to temporary storage
 
+```
 rm -rf temp\*
+```
 
 ⚠️ WARNING COMMAND
 
@@ -164,7 +145,9 @@ Why:
 
 -   Deletes unwanted files/folders recursively
 
+```
 find / -name "\*.log"
+```
 
 Why:
 
@@ -172,31 +155,41 @@ Why:
 
 **👤 USERS & PERMISSIONS**
 
+```
 sudo useradd devops
+```
 
 Why:
 
 -   Creates new Linux user
 
+```
 sudo passwd devops
+```
 
 Why:
 
 -   Assign password to user
 
+```
 sudo groupadd engineers
+```
 
 Why:
 
 -   Group multiple users
 
+```
 sudo usermod -aG engineers devops
+```
 
 Why:
 
 -   Adds user to group
 
+```
 chmod 755 script.sh
+```
 
 Why:
 
@@ -204,7 +197,9 @@ Why:
     -   7 = full access
     -   5 = read + execute
 
+```
 chown ubuntu:ubuntu file.txt
+```
 
 Why:
 
@@ -212,20 +207,26 @@ Why:
 
 **⚙️ PROCESS MANAGEMENT**
 
+```
 ps aux
+```
 
 Why:
 
 -   Shows all running processes
 
+```
 top  
 htop
+```
 
 Why:
 
 -   Real-time CPU/memory monitoring
 
+```
 kill -9 <PID>
+```
 
 Why:
 
@@ -233,13 +234,17 @@ Why:
 
 **💽 DISK USAGE**
 
+```
 df -h
+```
 
 Why:
 
 -   Shows disk space usage
 
+```
 du -sh \*
+```
 
 Why:
 
@@ -247,39 +252,50 @@ Why:
 
 **📜 LOGS (VERY IMPORTANT IN DEVOPS)**
 
+```
 cd /var/log
+```
 
 Why:
 
 -   System logs location
 
+```
 tail -f syslog
+```
 
 Why:
 
 -   Live log monitoring
 
+```
 journalctl -xe
-
+```
 Why:
 
 -   System service debugging
 
 **🌐 NETWORKING**
 
+```
 ping google.com
+```
 
 Why:
 
 -   Check internet connectivity
 
+```
 curl ifconfig.me
+```
 
 Why:
 
 -   Get public IP
 
+```
 ss -tulnp
+```
 
 Why:
 
@@ -287,12 +303,16 @@ Why:
 
 **🧠 BASH SCRIPT**
 
+```
 nano backup.sh
+```
 
 **Script:**
 
+```
 #!/bin/bash  
 tar -czf backup-$(date +%F).tar.gz /home/ubuntu
+```
 
 **Why?**
 
@@ -304,14 +324,18 @@ tar -czf backup-$(date +%F).tar.gz /home/ubuntu
 
 Install Git:
 
+```
 sudo apt install git -y
+```
 
 Why:
 
 -   Enables version control system
 
+```
 git config --global user.name "yourname"  
 git config --global user.email "you@example.com"
+```
 
 Why:
 
@@ -319,8 +343,10 @@ Why:
 
 **CREATE PROJECT**
 
+```
 mkdir microservices-app && cd microservices-app  
 git init
+```
 
 Why:
 
@@ -328,7 +354,9 @@ Why:
 
 **CONNECT TO GitHub**
 
+```
 git remote add origin https://github.com/<username>/devops-lab.git
+```
 
 Why:
 
@@ -336,19 +364,25 @@ Why:
 
 **BRANCHING**
 
+```
 git checkout -b feature-login
+```
 
 Why:
 
 -   Creates isolated development branch
 
+```
 git branch -m feature-auth
+```
 
 Why:
 
 -   Renames branch
 
+```
 git branch -d old-branch
+```
 
 Why:
 
@@ -356,25 +390,33 @@ Why:
 
 **ADVANCED GIT**
 
+```
 git stash
+```
 
 Why:
 
 -   Temporarily saves work
 
+```
 git stash pop
+```
 
 Why:
 
 -   Restores saved work
 
+```
 git reset --hard HEAD~1
+```
 
 Why:
 
 -   Undo last commit completely
 
+```
 git revert HEAD
+```
 
 Why:
 
@@ -384,7 +426,9 @@ Why:
 
 Install Docker
 
+```
 sudo apt install docker.io -y
+```
 
 Why:
 
