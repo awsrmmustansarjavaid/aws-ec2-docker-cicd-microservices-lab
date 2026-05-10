@@ -620,11 +620,91 @@ services:
       - "3000:3000"
 ```
 
+## Run in Background
+
 ```bash
 docker-compose up -d
 ```
-
+- -d means detached mode. 
 ---
+
+## Check Running Containers
+
+```
+docker ps
+```
+
+## Stop Containers
+
+```
+docker compose down
+```
+
+This stops and removes containers.
+
+## Most Important Compose Commands
+
+### Start
+
+```
+docker compose up
+```
+
+### Background Start
+
+```
+docker compose up -d
+```
+
+### Stop
+
+```
+docker compose stop
+```
+
+### Remove Everything
+
+```
+docker compose down
+```
+
+### Restart
+
+```
+docker compose restart
+```
+
+### View Logs
+
+```
+docker compose logs
+```
+
+### Live Logs
+
+```
+docker compose logs -f
+```
+
+### Build Images
+
+```
+docker compose build
+```
+
+### Pull Images
+
+```
+docker compose pull
+```
+
+### Check Running Services
+
+```
+docker compose ps
+```
+
+
 
 ## 🎯 Practice Tasks
 
