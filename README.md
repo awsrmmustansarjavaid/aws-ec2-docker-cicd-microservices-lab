@@ -392,7 +392,6 @@ sudo apt install -y git curl wget unzip net-tools htop
 | net-tools | network commands   |
 | htop      | process monitoring |
 
-
 ---
 
 ## 🎯 Practice Tasks
