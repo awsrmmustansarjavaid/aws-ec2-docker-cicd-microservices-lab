@@ -677,11 +677,12 @@ jobs:
 
 - IAM Role for EC2  
 - No hardcoded credentials  
-- Secrets in GitHub  
 
 ---
 
-## Store Secrets
+## Secrets in GitHub  
+
+### Store Secrets
 
 - SSH key  
 - Docker credentials  
