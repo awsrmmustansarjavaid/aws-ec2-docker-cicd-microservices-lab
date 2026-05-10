@@ -335,19 +335,34 @@ This lab teaches you:
 OS: Ubuntu 22.04 or Amazon Linux 2023  
 Instance type: t2.micro (free tier)
 
+### Why this matters:
+
+- EC2 = your real Linux server in cloud
+
+- Ubuntu = most widely used DevOps OS
+
+- t2.micro = free lab environment
+
 ---
 
 ## ✅ Step 2: Security Group (VERY IMPORTANT)
 
-Allow:
+Allow ports:
 
-- SSH (22) → Your IP  
-- HTTP (80) → 0.0.0.0/0  
-- HTTPS (443) → 0.0.0.0/0  
-- Custom (3000-5000) → For apps  
-- 9090 → Prometheus  
-- 3001 → Grafana  
+| Port      | Purpose                |
+| --------- | ---------------------- |
+| 22        | SSH access             |
+| 80        | HTTP web traffic       |
+| 443       | HTTPS secure traffic   |
+| 3000–5000 | Apps (Docker services) |
+| 9090      | Prometheus             |
+| 3001      | Grafana                |
 
+### Why this is critical:
+
+Security Group = firewall of AWS
+
+👉 It controls WHO can access your server
 ---
 
 ## ✅ Step 3: Connect via SSH
@@ -366,13 +381,42 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y git curl wget unzip net-tools htop
 ```
 
+### Why each tool exists:
+
+| Tool      | Purpose            |
+| --------- | ------------------ |
+| git       | version control    |
+| curl      | API testing        |
+| wget      | file download      |
+| unzip     | extract files      |
+| net-tools | network commands   |
+| htop      | process monitoring |
+
+
 ---
 
 ## 🎯 Practice Tasks
 
 - Create 3 directories: dev, test, prod  
+
+```
+mkdir dev test prod
+```
+### Why?
+
+Simulates real environment separation:
+
+- dev = development
+
+- test = testing
+
+- prod = production
+
 - SSH reconnect without errors  
+
 - Block and allow ports from security group  
+
+
 
 ---
 
