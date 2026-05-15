@@ -575,11 +575,155 @@ ss -tulnp
 
 ## 🔹 Bash Script (REAL)
 
-```bash
-nano backup.sh
+```
+sudo nano bashscripting.sh
+```
 
+```bash
 #!/bin/bash
-tar -czf backup-$(date +%F).tar.gz /home/ubuntu
+
+set -e
+
+echo "=================================="
+echo " End-to-End AWS DevOps Microservices Lab"
+echo "=================================="
+
+# ---------------------------------------------------
+# INSTALL BASE TOOLS
+# ---------------------------------------------------
+
+echo "Installing Base Tools..."
+
+sudo apt update
+sudo apt upgrade -y
+
+sudo apt install -y git curl wget unzip net-tools htop
+
+echo "Base tools installed successfully."
+
+# ---------------------------------------------------
+# CREATE DIRECTORIES
+# ---------------------------------------------------
+
+echo "Creating directories..."
+
+mkdir -p dev test prod
+
+echo "Directories created."
+
+# ---------------------------------------------------
+# FILE & DIRECTORY COMMANDS
+# ---------------------------------------------------
+
+echo "Running File & Directory commands..."
+
+ls -la
+
+if [ -f file1.txt ]
+then
+    cp file1.txt backup.txt
+    mv file1.txt /tmp/
+else
+    echo "file1.txt not found."
+fi
+
+rm -ri ./temp*
+
+find /var/log -name "*.log"
+
+# ---------------------------------------------------
+# USERS & PERMISSIONS
+# ---------------------------------------------------
+
+echo "Managing Users & Permissions..."
+
+if id "devops" &>/dev/null
+then
+    echo "User devops already exists."
+else
+    sudo useradd devops
+    sudo passwd devops
+fi
+
+if getent group engineers > /dev/null
+then
+    echo "Group engineers already exists."
+else
+    sudo groupadd engineers
+fi
+
+sudo usermod -aG engineers devops
+
+chmod 755 script.sh
+
+sudo chown ubuntu:ubuntu file.txt
+
+echo "Users and permissions configured."
+
+# ---------------------------------------------------
+# PROCESSES
+# ---------------------------------------------------
+
+echo "Checking processes..."
+
+ps aux
+
+top -b -n 1
+
+# ---------------------------------------------------
+# KILL PROCESS
+# ---------------------------------------------------
+
+echo "Process Management"
+
+read -p "Enter PID to kill: " PID
+
+if ps -p $PID > /dev/null
+then
+    kill $PID
+    echo "Process $PID killed successfully."
+else
+    echo "PID $PID does not exist."
+fi
+
+# ---------------------------------------------------
+# DISK
+# ---------------------------------------------------
+
+echo "Checking disk usage..."
+
+df -h
+
+du -sh *
+
+# ---------------------------------------------------
+# LOGS
+# ---------------------------------------------------
+
+echo "Checking logs..."
+
+tail -20 /var/log/syslog
+
+journalctl -n 20
+
+# ---------------------------------------------------
+# NETWORKING
+# ---------------------------------------------------
+
+echo "Checking networking..."
+
+ping -c 4 google.com
+
+curl -s ifconfig.me
+echo ""
+
+ss -tulnp
+
+# ---------------------------------------------------
+# THE END
+# ---------------------------------------------------
+
+echo "Lab completed successfully."
 ```
 
 ---
