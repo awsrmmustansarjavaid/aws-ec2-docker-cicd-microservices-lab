@@ -955,10 +955,15 @@ _Example:_
 
 ### 3. Configure AWS CLI With OLD Account
 
+```
 aws configure --profile old
+```
 
 ### 4. Direct Transfer (No Download)
+
+```
 aws s3 sync s3://old-bucket s3://new-bucket --profile old
+```
 ---
 # 📘 AWS S3 to S3 Data Transfer Lab
 
