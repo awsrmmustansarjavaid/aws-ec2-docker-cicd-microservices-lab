@@ -706,7 +706,10 @@ then
     echo "User devops already exists."
 else
     # Create new user
-    sudo useradd devops
+    sudo useradd -m -s /bin/bash devops
+    # -m → create home directory
+    # -s /bin/bash → assign bash shell
+
 
     # Set password for user
     sudo passwd devops
