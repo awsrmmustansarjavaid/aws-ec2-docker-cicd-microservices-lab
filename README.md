@@ -536,6 +536,31 @@ tail -f syslog
 journalctl -xe
 ```
 
+#### This Changes Current Directory Permanently
+
+```
+cd /var/log
+```
+
+After this command,
+script stays inside /var/log.
+
+Everything after runs from there.
+
+This is VERY important in Bash scripting.
+
+Example:
+If later you use:
+
+```
+rm file.txt
+```
+
+it removes:
+/var/log/file.txt
+
+NOT file in original directory.
+
 ---
 
 ## 🔹 Networking
