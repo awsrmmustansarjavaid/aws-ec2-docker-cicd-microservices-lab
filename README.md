@@ -477,8 +477,6 @@ find / -name "*.log"
 find /var/log -name "*.log"
 ```
 
-
-
 ---
 
 ## 🔹 Users & Permissions
