@@ -427,9 +427,57 @@ Simulates real environment separation:
 ls -la
 cp file1.txt backup.txt
 mv file1.txt /tmp/
+rm -ri ./temp*
+find /var/log -name "*.log"
+```
+
+#### This Command Is Dangerous For Beginners
+
+```
 rm -rf temp*
+```
+
+- If wildcard expands unexpectedly,it may delete unintended files.
+
+- Safer beginner version:
+
+```
+rm -rf ./temp*
+```
+
+- Even safer:
+
+```
+rm -ri ./temp*
+```
+
+- Explanation:
+
+  - -r recursive
+
+  - -i asks confirmation
+
+#### This Command Is Heavy
+
+```
 find / -name "*.log"
 ```
+
+- Problem:
+
+  - scans whole filesystem
+
+  - many permission denied errors
+
+  - can be slow
+
+- Better:
+
+```
+find /var/log -name "*.log"
+```
+
+
 
 ---
 
@@ -453,6 +501,22 @@ ps aux
 top
 htop
 kill -9 <PID>
+```
+
+- next commands won't run until you press:
+
+  - q for top
+
+  - F10 or q for htop
+
+For automation scripts:
+
+- avoid interactive commands
+
+Better:
+
+```
+top -b -n 1
 ```
 
 ---
