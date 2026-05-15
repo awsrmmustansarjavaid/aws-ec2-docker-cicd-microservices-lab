@@ -586,9 +586,9 @@ sudo nano linux.sh
 # Exit on Error
 # ---------------------------------------------------
 
-set -e
+set -euo pipefail
 
-# set -e
+# set -euo pipefail
 # If any command fails (returns error),
 # stop the script immediately.
 # This makes scripts safer for automation.
