@@ -679,7 +679,11 @@ fi
 # rm = remove/delete
 # -r = recursive (delete folders/files inside)
 # -i = ask before deleting
-rm -ri ./temp*
+if ls ./temp* 1> /dev/null 2>&1; then
+    rm -ri ./temp*
+else
+    echo "No temp files found."
+fi
 
 # find = search files
 # Search all .log files inside /var/log
