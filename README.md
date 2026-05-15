@@ -835,6 +835,43 @@ ss -tulnp
 echo "Lab completed successfully."
 ```
 
+#### ⚠️ set -e + Interactive Commands Problem
+
+- You used: set -e 
+
+This is good for automation.
+
+BUT:
+
+Commands like:
+
+```
+sudo passwd devops
+read -p "Enter PID to kill: " PID
+```
+are interactive.
+
+If anything fails or user presses CTRL+C, script may stop unexpectedly.
+
+- Better Practice For learning:
+
+```
+set -euo pipefail
+```
+
+- Explanation:
+
+  - -e → stop on error
+  - -u → error on undefined variables
+  - pipefail → fail pipeline if any command fails
+
+Example:
+
+```
+set -euo pipefail
+```
+
+
 ### Adv. Bash Script
 
 ```
