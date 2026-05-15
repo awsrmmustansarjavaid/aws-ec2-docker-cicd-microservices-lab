@@ -835,6 +835,305 @@ ss -tulnp
 echo "Lab completed successfully."
 ```
 
+### Adv. Bash Script
+
+```
+#!/bin/bash
+
+# =========================================================
+# End-to-End AWS DevOps Microservices Lab
+# Improved & Safer Bash Script
+# =========================================================
+
+# Exit script immediately if command fails
+set -e
+
+# =========================================================
+# COLORS
+# =========================================================
+
+GREEN="\e[32m"
+RED="\e[31m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
+RESET="\e[0m"
+
+# =========================================================
+# FUNCTIONS
+# =========================================================
+
+# Print section headers
+print_header() {
+    echo -e "\n${BLUE}=================================================${RESET}"
+    echo -e "${GREEN}$1${RESET}"
+    echo -e "${BLUE}=================================================${RESET}"
+}
+
+# Check if command exists
+check_command() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# =========================================================
+# START
+# =========================================================
+
+print_header "End-to-End AWS DevOps Microservices Lab"
+
+# =========================================================
+# INSTALL BASE TOOLS
+# =========================================================
+
+print_header "Installing Base Tools"
+
+sudo apt update
+sudo apt upgrade -y
+
+sudo apt install -y \
+    git \
+    curl \
+    wget \
+    unzip \
+    net-tools \
+    htop
+
+echo -e "${GREEN}Base tools installed successfully.${RESET}"
+
+# =========================================================
+# CREATE DIRECTORIES
+# =========================================================
+
+print_header "Creating Directories"
+
+mkdir -p dev test prod logs backups
+
+echo -e "${GREEN}Directories created successfully.${RESET}"
+
+# =========================================================
+# FILE & DIRECTORY OPERATIONS
+# =========================================================
+
+print_header "File & Directory Operations"
+
+# Show all files
+ls -la
+
+# Create sample file if not exists
+if [ ! -f file1.txt ]
+then
+    touch file1.txt
+    echo "Sample content" > file1.txt
+    echo "file1.txt created."
+fi
+
+# Copy file
+cp file1.txt backup.txt
+
+# Move file safely
+mv file1.txt /tmp/
+
+echo "File copied and moved successfully."
+
+# Remove temporary files safely
+rm -rf ./temp* 2>/dev/null || true
+
+# Find log files
+echo "Searching log files..."
+find /var/log -name "*.log" 2>/dev/null
+
+# =========================================================
+# USERS & GROUPS
+# =========================================================
+
+print_header "Managing Users & Groups"
+
+# Check if user exists
+if id "devops" &>/dev/null
+then
+    echo "User devops already exists."
+else
+    sudo useradd -m devops
+    echo "devops:password123" | sudo chpasswd
+    echo "User devops created successfully."
+fi
+
+# Check if group exists
+if getent group engineers >/dev/null
+then
+    echo "Group engineers already exists."
+else
+    sudo groupadd engineers
+    echo "Group engineers created successfully."
+fi
+
+# Add user to group
+sudo usermod -aG engineers devops
+
+echo "User added to engineers group."
+
+# =========================================================
+# FILE PERMISSIONS
+# =========================================================
+
+print_header "Managing File Permissions"
+
+# Create sample script if not exists
+if [ ! -f script.sh ]
+then
+    touch script.sh
+fi
+
+chmod 755 script.sh
+echo "Permissions applied to script.sh"
+
+# Create sample file if not exists
+if [ ! -f file.txt ]
+then
+    touch file.txt
+fi
+
+sudo chown "$USER":"$USER" file.txt
+
+echo "Ownership updated successfully."
+
+# =========================================================
+# PROCESS MANAGEMENT
+# =========================================================
+
+print_header "Checking Running Processes"
+
+ps aux
+
+echo ""
+echo "Top processes:"
+top -b -n 1 | head -20
+
+# =========================================================
+# PROCESS KILLER
+# =========================================================
+
+print_header "Process Management"
+
+read -p "Enter PID to kill (or press Enter to skip): " PID
+
+# Skip if empty
+if [ -z "$PID" ]
+then
+    echo "Skipping process kill section."
+
+# Validate PID
+elif [[ "$PID" =~ ^[0-9]+$ ]]
+then
+
+    # Prevent killing PID 1
+    if [ "$PID" -eq 1 ]
+    then
+        echo -e "${RED}Cannot kill PID 1.${RESET}"
+
+    elif ps -p "$PID" >/dev/null
+    then
+        kill "$PID"
+        echo -e "${GREEN}Process $PID killed successfully.${RESET}"
+
+    else
+        echo -e "${YELLOW}PID $PID does not exist.${RESET}"
+    fi
+
+else
+    echo -e "${RED}Invalid PID entered.${RESET}"
+fi
+
+# =========================================================
+# DISK USAGE
+# =========================================================
+
+print_header "Checking Disk Usage"
+
+df -h
+
+echo ""
+echo "Directory sizes:"
+du -sh ./* 2>/dev/null
+
+# =========================================================
+# LOGS
+# =========================================================
+
+print_header "Checking Logs"
+
+# Ubuntu/Debian
+if [ -f /var/log/syslog ]
+then
+    echo "Showing syslog:"
+    tail -20 /var/log/syslog
+fi
+
+echo ""
+echo "Showing journal logs:"
+journalctl -n 20 --no-pager
+
+# =========================================================
+# NETWORKING
+# =========================================================
+
+print_header "Checking Networking"
+
+echo "Testing internet connectivity..."
+
+ping -c 4 8.8.8.8 || echo "Ping failed."
+
+echo ""
+echo "Public IP Address:"
+curl -s https://ifconfig.me
+
+echo ""
+echo ""
+echo "Listening Ports:"
+ss -tulnp
+
+# =========================================================
+# SYSTEM INFORMATION
+# =========================================================
+
+print_header "System Information"
+
+echo "Hostname:"
+hostname
+
+echo ""
+echo "Kernel Version:"
+uname -r
+
+echo ""
+echo "Memory Usage:"
+free -h
+
+# =========================================================
+# CHECK IMPORTANT COMMANDS
+# =========================================================
+
+print_header "Checking Important Commands"
+
+commands=("git" "curl" "wget" "docker")
+
+for cmd in "${commands[@]}"
+do
+    if check_command "$cmd"
+    then
+        echo -e "${GREEN}$cmd is installed.${RESET}"
+    else
+        echo -e "${RED}$cmd is NOT installed.${RESET}"
+    fi
+done
+
+# =========================================================
+# FINISHED
+# =========================================================
+
+print_header "Lab Completed Successfully"
+
+echo -e "${GREEN}AWS DevOps Bash Lab Finished Successfully.${RESET}"
+```
 
 ---
 
