@@ -576,7 +576,7 @@ ss -tulnp
 ## 🔹 Bash Script (REAL)
 
 ```
-sudo nano bashscripting.sh
+sudo nano linux.sh
 ```
 
 ```bash
