@@ -663,6 +663,17 @@ then
 
 else
     echo "file1.txt not found."
+
+    touch file1.txt
+    
+    if [ -f file1.txt ]
+    then
+        # Copy file1.txt to backup.txt
+        cp file1.txt backup.txt
+
+        # Move file1.txt to /tmp directory
+        mv file1.txt /tmp/
+    fi   
 fi
 
 # rm = remove/delete
