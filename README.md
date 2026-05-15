@@ -671,8 +671,8 @@ else
         # Copy file1.txt to backup.txt
         cp file1.txt backup.txt
 
-        # Move file1.txt to /tmp directory
-        mv file1.txt /tmp/
+        # Copy file1.txt to /tmp directory
+        cp file1.txt /tmp/
     fi   
 fi
 
