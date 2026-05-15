@@ -588,6 +588,11 @@ sudo nano linux.sh
 
 set -e
 
+# set -e
+# If any command fails (returns error),
+# stop the script immediately.
+# This makes scripts safer for automation.
+
 echo "=================================="
 echo " End-to-End AWS DevOps Microservices Lab"
 echo "=================================="
@@ -598,10 +603,22 @@ echo "=================================="
 
 echo "Installing Base Tools..."
 
+# Update package list from repositories
 sudo apt update
+
+# Upgrade installed packages
+# -y = automatically answer YES
 sudo apt upgrade -y
 
+# Install useful Linux and DevOps tools
 sudo apt install -y git curl wget unzip net-tools htop
+
+# git       = version control
+# curl      = API testing / downloading
+# wget      = file downloading
+# unzip     = extract zip files
+# net-tools = networking commands
+# htop      = system monitoring tool
 
 echo "Base tools installed successfully."
 
@@ -611,7 +628,14 @@ echo "Base tools installed successfully."
 
 echo "Creating directories..."
 
+# mkdir = create directory
+# -p = no error if directory already exists
 mkdir -p dev test prod
+
+# Creates:
+# dev/
+# test/
+# prod/
 
 echo "Directories created."
 
@@ -621,18 +645,33 @@ echo "Directories created."
 
 echo "Running File & Directory commands..."
 
+# ls = list files
+# -l = long format
+# -a = show hidden files
 ls -la
+
+# Check if file1.txt exists
+# -f = regular file exists
 
 if [ -f file1.txt ]
 then
+    # Copy file1.txt to backup.txt
     cp file1.txt backup.txt
+
+    # Move file1.txt to /tmp directory
     mv file1.txt /tmp/
+
 else
     echo "file1.txt not found."
 fi
 
+# rm = remove/delete
+# -r = recursive (delete folders/files inside)
+# -i = ask before deleting
 rm -ri ./temp*
 
+# find = search files
+# Search all .log files inside /var/log
 find /var/log -name "*.log"
 
 # ---------------------------------------------------
@@ -641,25 +680,47 @@ find /var/log -name "*.log"
 
 echo "Managing Users & Permissions..."
 
+# id username
+# Check if user exists
+
+# &>/dev/null
+# Hide normal output and error messages
+
 if id "devops" &>/dev/null
 then
     echo "User devops already exists."
 else
+    # Create new user
     sudo useradd devops
+
+    # Set password for user
     sudo passwd devops
 fi
 
+# Check if group exists
 if getent group engineers > /dev/null
 then
     echo "Group engineers already exists."
 else
+    # Create group
     sudo groupadd engineers
 fi
 
+# Add user 'devops' into 'engineers' group
+# -a = append
+# -G = secondary group
 sudo usermod -aG engineers devops
+
+# chmod = change permissions
+# 755 means:
+# owner = rwx
+# group = r-x
+# others = r-x
 
 chmod 755 script.sh
 
+# chown = change owner
+# ubuntu:ubuntu = owner:group
 sudo chown ubuntu:ubuntu file.txt
 
 echo "Users and permissions configured."
@@ -670,8 +731,12 @@ echo "Users and permissions configured."
 
 echo "Checking processes..."
 
+# Show running processes
 ps aux
 
+# top command in batch mode
+# -b = batch mode
+# -n 1 = run once
 top -b -n 1
 
 # ---------------------------------------------------
@@ -680,11 +745,17 @@ top -b -n 1
 
 echo "Process Management"
 
+# Ask user to enter PID
+# PID = Process ID
+
 read -p "Enter PID to kill: " PID
 
+# Check if process exists
 if ps -p $PID > /dev/null
 then
+    # Kill process
     kill $PID
+
     echo "Process $PID killed successfully."
 else
     echo "PID $PID does not exist."
@@ -696,8 +767,13 @@ fi
 
 echo "Checking disk usage..."
 
+# df = disk filesystem usage
+# -h = human readable
 df -h
 
+# du = directory usage
+# -s = summary
+# -h = human readable
 du -sh *
 
 # ---------------------------------------------------
@@ -706,8 +782,10 @@ du -sh *
 
 echo "Checking logs..."
 
+# Show last 20 lines from syslog
 tail -20 /var/log/syslog
 
+# Show last 20 journal logs
 journalctl -n 20
 
 # ---------------------------------------------------
@@ -716,10 +794,26 @@ journalctl -n 20
 
 echo "Checking networking..."
 
+# ping = test internet/network connectivity
+# -c 4 = send 4 packets only
 ping -c 4 google.com
 
+# curl = fetch data from internet
+# -s = silent mode
+# ifconfig.me returns public IP address
 curl -s ifconfig.me
+
+# Print empty line
 echo ""
+
+# ss = socket statistics
+# Shows listening ports and services
+
+# -t = TCP
+# -u = UDP
+# -l = listening ports
+# -n = numeric output
+# -p = process using port
 
 ss -tulnp
 
