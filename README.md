@@ -914,3 +914,49 @@ Don’t just read this.
 👉 Fix them  
 
 That’s how DevOps engineers are made — not by theory.
+
+---
+
+## 🚀 Best Way For S3 Data Transfer
+
+### 1. Create Bucket In New AWS Account 
+
+_Example:_
+- Old bucket: `"old-bucket"`
+- New bucket: `"new-bucket"`
+
+### 2. In NEW Account Add Bucket Policy 
+
+- Go to:  `S3 → new-bucket → Permissions → Bucket Policy`
+
+#### Replace IDs and paste:
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::OLD_ACCOUNT_ID:root"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::new-bucket",
+        "arn:aws:s3:::new-bucket/*"
+      ]
+    }
+  ]
+}
+```
+
+### 3. Configure AWS CLI With OLD Account
+
+aws configure --profile old
+
+### 4. Direct Transfer (No Download)
+aws s3 sync s3://old-bucket s3://new-bucket --profile old
+---
