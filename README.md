@@ -455,9 +455,6 @@ Simulates real environment separation:
 ls
 ```
 
-```
-backups  logs  projects  scripts
-```
 
 ---
 
