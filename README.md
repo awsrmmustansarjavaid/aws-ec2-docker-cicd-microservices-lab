@@ -435,6 +435,18 @@ Now create multiple folders in one command.
 mkdir -p ~/devops-lab/{scripts,logs,backups,docker,monitoring}
 ```
 
+#### 🔥 WHY THIS IS IMPORTANT
+
+This simulates real company structure:
+
+```
+scripts/      → automation
+logs/         → troubleshooting
+backups/      → backup files
+docker/       → containers
+monitoring/   → prometheus/grafana
+```
+
 ### STEP 4 — Verify Directories
 
 ```
