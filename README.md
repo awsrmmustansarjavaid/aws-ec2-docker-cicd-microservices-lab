@@ -402,6 +402,9 @@ sudo apt install -y git curl wget unzip net-tools htop
 
 ```
 pwd
+ls
+ls -la
+cd /var/log
 ```
 
 ### STEP 2 — Create Main Lab Folder
@@ -429,25 +432,8 @@ ls
 Now create multiple folders in one command.
 
 ```
-mkdir -p {dev,logs,test,prod}
+mkdir -p ~/devops-lab/{scripts,logs,backups,docker,monitoring}
 ```
-### Why?
-
-Simulates real environment separation:
-
-- dev = development
-
-- test = testing
-
-- prod = production
-
-- SSH reconnect without errors  
-
-- Block and allow ports from security group  
-
-- {} Brace expansion
-
-- -p Create parent directories safely
 
 ### STEP 4 — Verify Directories
 
