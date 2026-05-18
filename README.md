@@ -447,7 +447,42 @@ docker/       → containers
 monitoring/   → prometheus/grafana
 ```
 
-### STEP 4 — Verify Directories
+### STEP 4 — Multi File & Directory Creation
+
+NOW connect this to Docker + Microservices.
+
+#### Create service folders:
+
+```
+mkdir -p ~/microservices/{frontend,backend,database}
+```
+
+#### Create app files:
+
+```
+touch ~/microservices/frontend/{app.js,Dockerfile}
+touch ~/microservices/backend/{server.js,Dockerfile}
+touch ~/microservices/database/{mongo.txt,backup.log}
+```
+
+🧠 WHY THIS IS IMPORTANT
+
+Now Linux practice becomes REAL DevOps work.
+
+You are no longer creating random files.
+
+You are creating:
+
+- frontend service
+
+- backend API
+
+- database files
+
+like real infrastructure.
+
+
+### STEP 5 — Verify Directories
 
 ```
 ls
