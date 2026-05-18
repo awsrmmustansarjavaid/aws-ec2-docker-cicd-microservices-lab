@@ -396,10 +396,40 @@ sudo apt install -y git curl wget unzip net-tools htop
 
 ## 🎯 Practice Tasks
 
-- Create 3 directories: dev, test, prod  
+## 🟢 PHASE 1 — Create Lab Folder Structure
+
+### STEP 1 —First check your current location.
 
 ```
-mkdir dev test prod
+pwd
+```
+
+### STEP 2 — Create Main Lab Folder
+
+```
+mkdir linux-lab
+```
+
+#### Now move into it:
+
+```
+cd linux-lab
+```
+
+#### Check contents:
+
+```
+ls
+```
+
+##### Currently it will be empty.
+
+### STEP 3 — Create Multiple Directories (Brace Expansion)
+
+Now create multiple folders in one command.
+
+```
+mkdir -p {projects,logs,backups,scripts}
 ```
 ### Why?
 
@@ -415,7 +445,24 @@ Simulates real environment separation:
 
 - Block and allow ports from security group  
 
+#### 🔍 What is happening here?
 
+| Part          | Meaning                          |
+| ------------- | -------------------------------- |
+| mkdir         | Create directory                 |
+| -p            | Create parent directories safely |
+| {}            | Brace expansion                  |
+| projects,logs | Multiple folders                 |
+
+### STEP 4 — Verify Directories
+
+```
+ls
+```
+
+```
+backups  logs  projects  scripts
+```
 
 ---
 
