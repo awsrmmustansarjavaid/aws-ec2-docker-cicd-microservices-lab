@@ -429,7 +429,7 @@ ls
 Now create multiple folders in one command.
 
 ```
-mkdir -p {projects,logs,backups,scripts}
+mkdir -p {dev,logs,test,prod}
 ```
 ### Why?
 
@@ -445,14 +445,9 @@ Simulates real environment separation:
 
 - Block and allow ports from security group  
 
-#### 🔍 What is happening here?
+- {} Brace expansion
 
-| Part          | Meaning                          |
-| ------------- | -------------------------------- |
-| mkdir         | Create directory                 |
-| -p            | Create parent directories safely |
-| {}            | Brace expansion                  |
-| projects,logs | Multiple folders                 |
+- -p Create parent directories safely
 
 ### STEP 4 — Verify Directories
 
