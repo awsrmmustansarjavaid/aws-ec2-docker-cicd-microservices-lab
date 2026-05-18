@@ -481,7 +481,6 @@ You are creating:
 
 like real infrastructure.
 
-
 ### STEP 5 — Verify Directories
 
 ```
