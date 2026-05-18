@@ -488,7 +488,6 @@ like real infrastructure.
 ls
 ```
 
-
 ---
 
 # 🐧 PHASE 2: LINUX (REAL DEVOPS TASKS)
